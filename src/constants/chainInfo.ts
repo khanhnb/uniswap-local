@@ -259,6 +259,22 @@ const CHAIN_INFO: ChainInfoMap = {
     nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 },
     color: darkTheme.chain_84531,
   },
+  [1022]: {
+    networkType: NetworkType.L2,
+    blockWaitMsBeforeWarning: ms(`25m`),
+    bridge: 'https://bridge.base.org/deposit',
+    defaultListUrl: BASE_LIST,
+    docs: 'https://docs.base.org',
+    explorer: 'https://explorer-testnet.biteigen.xyz/',
+    infoLink: 'https://info.uniswap.org/#/base/',
+    label: 'BitEigen',
+    logoUrl: baseLogo,
+    statusPage: 'https://status.base.org/',
+    circleLogoUrl: baseLogo,
+    squareLogoUrl: baseSquareLogo,
+    nativeCurrency: { name: 'Pol', symbol: 'POL', decimals: 18 },
+    color: darkTheme.chain_84531,
+  },
 } as const
 
 export function getChainInfo(chainId: SupportedL1ChainId): L1ChainInfo

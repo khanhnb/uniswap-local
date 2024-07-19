@@ -249,6 +249,27 @@ export const DAI_AVALANCHE = new Token(
   'DAI.e',
   'Dai.e Token'
 )
+export const WETH_BITEIGEN = new Token(
+  1022,
+  '0x81850632f76E7ceeB606773c3827e351D5A8438b',
+  18,
+  'WETH',
+  'WETH Token'
+)
+export const USDT_BITEIGEN = new Token(
+  1022,
+  '0x0180Ae5101B36e1D29e23BF4B113225CEb650796',
+  18,
+  'USDT',
+  'USDT Token'
+)
+export const USDC_BITEIGEN = new Token(
+  1022,
+  '0xA48683bE1d0eccA828CabD12ff66D5Ab063705F9',
+  18,
+  'USDC',
+  'USDC Token'
+)
 
 export const UNI: { [chainId: number]: Token } = {
   [ChainId.MAINNET]: new Token(ChainId.MAINNET, UNI_ADDRESSES[ChainId.MAINNET], 18, 'UNI', 'Uniswap'),
@@ -335,6 +356,13 @@ export const WRAPPED_NATIVE_CURRENCY: { [chainId: number]: Token | undefined } =
     18,
     'WAVAX',
     'Wrapped AVAX'
+  ),
+  [1022]: new Token(
+    1022,
+    '0x81850632f76E7ceeB606773c3827e351D5A8438b',
+    18,
+    'WETH',
+    'Wrapped Ether'
   ),
 }
 
@@ -458,7 +486,7 @@ export function getSwapCurrencyId(currency: Currency): string {
   return NATIVE_CHAIN_ID
 }
 
-export const TOKEN_SHORTHANDS: { [shorthand: string]: { [chainId in ChainId]?: string } } = {
+export const TOKEN_SHORTHANDS: { [shorthand: string]: { [chainId in ChainId | 1022]?: string } } = {
   USDC: {
     [ChainId.MAINNET]: USDC_MAINNET.address,
     [ChainId.ARBITRUM_ONE]: BRIDGED_USDC_ARBITRUM.address,
@@ -473,5 +501,6 @@ export const TOKEN_SHORTHANDS: { [shorthand: string]: { [chainId in ChainId]?: s
     [ChainId.GOERLI]: USDC_GOERLI.address,
     [ChainId.SEPOLIA]: USDC_SEPOLIA.address,
     [ChainId.AVALANCHE]: USDC_AVALANCHE.address,
+    [1022]: USDC_BITEIGEN.address,
   },
 }

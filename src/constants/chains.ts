@@ -15,6 +15,7 @@ export const CHAIN_IDS_TO_NAMES = {
   [ChainId.BNB]: 'bnb',
   [ChainId.AVALANCHE]: 'avalanche',
   [ChainId.BASE]: 'base',
+  [1022]: 'biteigen',
 } as const
 
 // Include ChainIds in this array if they are not supported by the UX yet, but are already in the SDK.
@@ -24,7 +25,8 @@ const NOT_YET_UX_SUPPORTED_CHAIN_IDS: number[] = [ChainId.BASE_GOERLI]
 export type SupportedInterfaceChain = Exclude<SupportedChainsType, ChainId.BASE_GOERLI>
 
 export function isSupportedChain(chainId: number | null | undefined | ChainId): chainId is SupportedInterfaceChain {
-  return !!chainId && SUPPORTED_CHAINS.indexOf(chainId) !== -1 && NOT_YET_UX_SUPPORTED_CHAIN_IDS.indexOf(chainId) === -1
+  // return !!chainId && SUPPORTED_CHAINS.indexOf(chainId) !== -1 && NOT_YET_UX_SUPPORTED_CHAIN_IDS.indexOf(chainId) === -1
+  return (!!chainId && SUPPORTED_CHAINS.indexOf(chainId) !== -1 && NOT_YET_UX_SUPPORTED_CHAIN_IDS.indexOf(chainId) === -1) || (chainId === 1022);
 }
 
 export function asSupportedChain(chainId: number | null | undefined | ChainId): SupportedInterfaceChain | undefined {
@@ -41,6 +43,7 @@ export const SUPPORTED_GAS_ESTIMATE_CHAIN_IDS = [
   ChainId.BNB,
   ChainId.AVALANCHE,
   ChainId.BASE,
+  1022
 ] as const
 
 /**
@@ -55,6 +58,7 @@ export const TESTNET_CHAIN_IDS = [
   ChainId.ARBITRUM_GOERLI,
   ChainId.OPTIMISM_GOERLI,
   ChainId.CELO_ALFAJORES,
+  1022
 ] as const
 
 /**
@@ -84,6 +88,7 @@ export const L2_CHAIN_IDS = [
   ChainId.OPTIMISM,
   ChainId.OPTIMISM_GOERLI,
   ChainId.BASE,
+  1022
 ] as const
 
 export type SupportedL2ChainId = (typeof L2_CHAIN_IDS)[number]

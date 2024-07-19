@@ -133,7 +133,9 @@ export function useV2RouterContract(): Contract | null {
 }
 
 export function useInterfaceMulticall() {
-  return useContract<UniswapInterfaceMulticall>(MULTICALL_ADDRESSES, MulticallABI, false) as UniswapInterfaceMulticall
+  // return useContract<UniswapInterfaceMulticall>(MULTICALL_ADDRESSES, MulticallABI, false) as UniswapInterfaceMulticall
+  // TODO: refactor this
+  return useContract<UniswapInterfaceMulticall>("0x0Be1C1b271bbab286D7CE83609A235EbD109c54f", MulticallABI, false) as UniswapInterfaceMulticall
 }
 
 export function useMainnetInterfaceMulticall() {
@@ -144,8 +146,14 @@ export function useMainnetInterfaceMulticall() {
 }
 
 export function useV3NFTPositionManagerContract(withSignerIfPossible?: boolean): NonfungiblePositionManager | null {
+  // TODO: refactor this
+  // const contract = useContract<NonfungiblePositionManager>(
+  //   NONFUNGIBLE_POSITION_MANAGER_ADDRESSES,
+  //   NFTPositionManagerABI,
+  //   withSignerIfPossible
+  // )
   const contract = useContract<NonfungiblePositionManager>(
-    NONFUNGIBLE_POSITION_MANAGER_ADDRESSES,
+    "0xAF37D5b6F34c73429e50c5573B005Ea810d0E509",
     NFTPositionManagerABI,
     withSignerIfPossible
   )

@@ -103,7 +103,9 @@ function usePools(
   }, [chainId, poolKeys])
 
   const poolAddresses: (string | undefined)[] = useMemo(() => {
-    const v3CoreFactoryAddress = chainId && V3_CORE_FACTORY_ADDRESSES[chainId]
+    // const v3CoreFactoryAddress = chainId && V3_CORE_FACTORY_ADDRESSES[chainId]
+    // TODO: refactor this
+    const v3CoreFactoryAddress = chainId && "0x137bcB1e99681cF823D2fDE9B90cf97C3b18fA3C"
     if (!v3CoreFactoryAddress) return new Array(poolTokens.length)
 
     return poolTokens.map((value) => value && PoolCache.getPoolAddress(v3CoreFactoryAddress, ...value))

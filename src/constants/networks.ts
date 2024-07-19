@@ -126,4 +126,5 @@ export const RPC_URLS = {
   [ChainId.BNB]: [...FALLBACK_URLS[ChainId.BNB]],
   [ChainId.AVALANCHE]: [...FALLBACK_URLS[ChainId.AVALANCHE]],
   [ChainId.BASE]: [...FALLBACK_URLS[ChainId.BASE]],
+  [1022]: ['https://rpc-testnet.biteigen.xyz'],
 }

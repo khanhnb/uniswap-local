@@ -9,6 +9,10 @@ export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000'
 export const DEFAULT_DEADLINE_FROM_NOW = 60 * 10
 export const L2_DEADLINE_FROM_NOW = 60 * 5
 
+// one day for testing
+// export const DEFAULT_DEADLINE_FROM_NOW = 60 * 60 * 24
+// export const L2_DEADLINE_FROM_NOW = 60 * 60 * 24
+
 // transaction popup dismisal amounts
 export const DEFAULT_TXN_DISMISS_MS = 10000
 export const L2_TXN_DISMISS_MS = 5000
