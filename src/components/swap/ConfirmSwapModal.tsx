@@ -156,6 +156,7 @@ function useConfirmModalState({
           try {
             onSwap()
           } catch (e) {
+            console.log("on errror")
             catchUserReject(e, PendingModalError.CONFIRMATION_ERROR)
           }
           break
@@ -316,6 +317,7 @@ export default function ConfirmSwapModal({
 
   const modalBottom = useCallback(() => {
     if (confirmModalState === ConfirmModalState.REVIEWING || showAcceptChanges) {
+      console.log(`showAcceptChanges: ${showAcceptChanges}, isPreviewTrade: ${isPreviewTrade(trade)}, bool: ${allowance.state === AllowanceState.LOADING}`)
       return (
         <SwapModalFooter
           onConfirm={startSwapFlow}

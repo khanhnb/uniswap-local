@@ -62,9 +62,10 @@ export function useUniversalRouterSwapCallback(trade: ClassicTrade | undefined, 
         fee: options.feeOptions,
       })
 
+      const universalRouterAddress = chainId === 1022 ? "0xDD078046aDDeD4a037AEff8247b15270Fb365D05" : UNIVERSAL_ROUTER_ADDRESS(chainId);
       const tx = {
         from: account,
-        to: UNIVERSAL_ROUTER_ADDRESS(chainId),
+        to: universalRouterAddress,
         data,
         // TODO(https://github.com/Uniswap/universal-router-sdk/issues/113): universal-router-sdk returns a non-hexlified value.
         ...(value && !isZero(value) ? { value: toHex(value) } : {}),

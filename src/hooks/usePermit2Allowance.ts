@@ -45,16 +45,18 @@ export type Allowance =
   | AllowanceRequired
 
 export default function usePermit2Allowance(
+  chainId: number,
   amount?: CurrencyAmount<Token>,
   spender?: string,
   tradeFillType?: TradeFillType
 ): Allowance {
   const { account } = useWeb3React()
   const token = amount?.currency
+  const permit2Address = chainId === 1022 ? "0xff44CBd5Ca237C768a2f0405A0a69D1B2AeE30f1": PERMIT2_ADDRESS;
 
-  const { tokenAllowance, isSyncing: isApprovalSyncing } = useTokenAllowance(token, account, PERMIT2_ADDRESS)
-  const updateTokenAllowance = useUpdateTokenAllowance(amount, PERMIT2_ADDRESS)
-  const revokeTokenAllowance = useRevokeTokenAllowance(token, PERMIT2_ADDRESS)
+  const { tokenAllowance, isSyncing: isApprovalSyncing } = useTokenAllowance(token, account, permit2Address)
+  const updateTokenAllowance = useUpdateTokenAllowance(amount, permit2Address)
+  const revokeTokenAllowance = useRevokeTokenAllowance(token, permit2Address)
   const isApproved = useMemo(() => {
     if (!amount || !tokenAllowance) return false
     return tokenAllowance.greaterThan(amount) || tokenAllowance.equalTo(amount)
@@ -65,8 +67,8 @@ export default function usePermit2Allowance(
   // until it has been re-observed. It wll sync immediately, because confirmation fast-forwards the block number.
   const [approvalState, setApprovalState] = useState(ApprovalState.SYNCED)
   const isApprovalLoading = approvalState !== ApprovalState.SYNCED
-  const isApprovalPending = useHasPendingApproval(token, PERMIT2_ADDRESS)
-  const isRevocationPending = useHasPendingRevocation(token, PERMIT2_ADDRESS)
+  const isApprovalPending = useHasPendingApproval(token, permit2Address)
+  const isRevocationPending = useHasPendingRevocation(token, permit2Address)
 
   useEffect(() => {
     if (isApprovalPending) {
@@ -131,6 +133,7 @@ export default function usePermit2Allowance(
 
   return useMemo(() => {
     if (token) {
+      console.log(`token: ${token}, ${!tokenAllowance}, ${!permitAllowance}`);
       if (!tokenAllowance || !permitAllowance) {
         return { state: AllowanceState.LOADING }
       } else if (shouldRequestSignature) {

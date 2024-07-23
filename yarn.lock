@@ -5139,10 +5139,10 @@
     tiny-invariant "^1.1.0"
     toformat "^2.0.0"
 
-"@uniswap/smart-order-router@^3.15.0":
-  version "3.15.0"
-  resolved "https://registry.yarnpkg.com/@uniswap/smart-order-router/-/smart-order-router-3.15.0.tgz#f9e1f7ecdf48b9bae7c182acb99289e3ee1acce3"
-  integrity sha512-H2IY4U+gQQ9E5mqYbv6uJWpTBGMkQ/tLKCdwfyL875bhTrGXunur0/7HurCW0BFIN3aEz6PqzJG+6QKg3hVCAQ==
+"@uniswap/smart-order-router@npm:@biteigen/smart-order-router@3.15.0-3":
+  version "3.15.0-3"
+  resolved "https://registry.yarnpkg.com/@biteigen/smart-order-router/-/smart-order-router-3.15.0-3.tgz#8671d92b3469ce6c9ae0ee2528d6b747415136ef"
+  integrity sha512-tsH9fMveA1chn0ez/rQeUXPd4bzdyPFNJG3ZzqMBh1b8U85iAASlqSlP7IdTGNjQ2U2ycUzxlxDkstHNv4s0kQ==
   dependencies:
     "@uniswap/default-token-list" "^11.2.0"
     "@uniswap/permit2-sdk" "^1.2.0"

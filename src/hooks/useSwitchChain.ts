@@ -18,7 +18,7 @@ function getRpcUrl(chainId: SupportedInterfaceChain): string {
     // MetaMask allows switching to any publicly reachable URL, but for novel chains, it will display a warning if it is not on the "Safe" list.
     // See the definition of FALLBACK_URLS for more details.
     case 1022 as SupportedInterfaceChain:
-      return RPC_URLS[chainId][0]
+      return "https://rpc-testnet.biteigen.xyz/"
     default:
       return FALLBACK_URLS[chainId][0]
   }

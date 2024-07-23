@@ -19,7 +19,8 @@ function toDeadline(expiration: number): number {
 }
 
 export function usePermitAllowance(token?: Token, owner?: string, spender?: string) {
-  const contract = useContract<Permit2>(PERMIT2_ADDRESS, PERMIT2_ABI)
+  const permit2Address = token?.chainId === 1022 ? '0xff44CBd5Ca237C768a2f0405A0a69D1B2AeE30f1' : PERMIT2_ADDRESS;
+  const contract = useContract<Permit2>(permit2Address, PERMIT2_ABI)
   const inputs = useMemo(() => [owner, token?.address, spender], [owner, spender, token?.address])
 
   // If there is no allowance yet, re-check next observed block.
@@ -57,6 +58,7 @@ export function useUpdatePermitAllowance(
   onPermitSignature: (signature: PermitSignature) => void
 ) {
   const { account, chainId, provider } = useWeb3React()
+  const permit2Address = token?.chainId === 1022 ? '0xff44CBd5Ca237C768a2f0405A0a69D1B2AeE30f1' : PERMIT2_ADDRESS;
   return useCallback(async () => {
     try {
       if (!chainId) throw new Error('missing chainId')
@@ -76,7 +78,7 @@ export function useUpdatePermitAllowance(
         sigDeadline: toDeadline(PERMIT_SIG_EXPIRATION),
       }
 
-      const { domain, types, values } = AllowanceTransfer.getPermitData(permit, PERMIT2_ADDRESS, chainId)
+      const { domain, types, values } = AllowanceTransfer.getPermitData(permit, permit2Address, chainId)
       const signature = await signTypedData(provider.getSigner(account), domain, types, values)
       onPermitSignature?.({ ...permit, signature })
       return

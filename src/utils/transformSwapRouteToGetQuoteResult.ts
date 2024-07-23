@@ -3,6 +3,7 @@ import { Currency, CurrencyAmount, TradeType } from '@uniswap/sdk-core'
 // This file is lazy-loaded, so the import of smart-order-router is intentional.
 // eslint-disable-next-line @typescript-eslint/no-restricted-imports
 import { routeAmountsToString, SwapRoute } from '@uniswap/smart-order-router'
+import { Pair } from '@uniswap/v2-sdk'
 import { Pool } from '@uniswap/v3-sdk'
 import { QuoteResult, QuoteState, URAQuoteType } from 'state/routing/types'
 import { ClassicQuoteData, V2PoolInRoute, V3PoolInRoute } from 'state/routing/types'
@@ -28,10 +29,11 @@ export function transformSwapRouteToGetQuoteResult(
   for (const subRoute of route) {
     const { amount, quote, tokenPath } = subRoute
 
+    console.log("protocol: ", subRoute.protocol)
     const pools = subRoute.protocol === Protocol.V2 ? subRoute.route.pairs : subRoute.route.pools
     const curRoute: (V3PoolInRoute | V2PoolInRoute)[] = []
     for (let i = 0; i < pools.length; i++) {
-      const nextPool = pools[i]
+      let nextPool = pools[i]
       const tokenIn = tokenPath[i]
       const tokenOut = tokenPath[i + 1]
 
@@ -45,7 +47,14 @@ export function transformSwapRouteToGetQuoteResult(
         edgeAmountOut = tradeType === TradeType.EXACT_INPUT ? quote.quotient.toString() : amount.quotient.toString()
       }
 
-      if (nextPool instanceof Pool) {
+      // console.log(`amount: ${amount.quotient.toString()}, quote: ${quote.quotient.toString()}`)
+      console.log(`edgeAmountIn: ${edgeAmountIn}, edgeAmountOut: ${edgeAmountOut}`)
+      console.log(`nextPool: ${JSON.stringify(nextPool)}, ${nextPool instanceof Pool}`);
+
+      // TODO: check this -> while nextPool is not instanceOf Pool even though subRoute.protocol is V3
+      // if (nextPool instanceof Pool) {
+      if (subRoute.protocol === Protocol.V3) {
+        nextPool = nextPool as Pool
         curRoute.push({
           type: 'v3-pool',
           tokenIn: {
@@ -68,6 +77,7 @@ export function transformSwapRouteToGetQuoteResult(
           amountOut: edgeAmountOut,
         })
       } else {
+        nextPool = nextPool as Pair
         const reserve0 = nextPool.reserve0
         const reserve1 = nextPool.reserve1
 

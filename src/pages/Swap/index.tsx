@@ -402,12 +402,15 @@ function Swap({
   )
 
   const maximumAmountIn = useMaxAmountIn(trade, allowedSlippage)
+  // TODO: refactor this
+  const spender = chainId === 1022 as ChainId ? "0xDD078046aDDeD4a037AEff8247b15270Fb365D05" : UNIVERSAL_ROUTER_ADDRESS(chainId ?? 0);
   const allowance = usePermit2Allowance(
+    chainId ?? 0,
     maximumAmountIn ??
       (parsedAmounts[Field.INPUT]?.currency.isToken
         ? (parsedAmounts[Field.INPUT] as CurrencyAmount<Token>)
         : undefined),
-    isSupportedChain(chainId) ? UNIVERSAL_ROUTER_ADDRESS(chainId) : undefined,
+    isSupportedChain(chainId) ? spender : undefined,
     trade?.fillType
   )
 
